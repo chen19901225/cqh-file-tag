@@ -2,7 +2,11 @@
 	"name": "cqh-file-tag",
 	"displayName": "cqh_file_tag",
 	"description": "",
+	"publisher": "cqh",
 	"version": "0.0.1",
+	"repository": {
+		"url": "https://github.com/chen19901225/cqh-file-tag"
+	},
 	"engines": {
 		"vscode": "^1.51.0"
 	},
