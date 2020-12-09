@@ -47,7 +47,7 @@ export async function cqh_file_tag_list(textEditor: vscode.TextEditor, edit: vsc
                 }
                 let title = currentLine.slice(start_text.length);
                 if(snippet.list[1]) {
-                    title = title.slice(title.length-snippet.list[1].length);
+                    title = title.slice(0, title.length-snippet.list[1].length);
                 }
                 let tag_piece_list = title.trim().split("||");
                 for(let tag of tag_piece_list) {
