@@ -40,7 +40,7 @@ export async function cqh_file_tag_list(textEditor: vscode.TextEditor, edit: vsc
         let start_text_list = ['cqh_file_tag', 'cqh-file-tag']
         for(let  start_text_piece of start_text_list) {
 
-            let start_text = snippet.list[0] + start_text_piece;
+            let start_text = snippet.list[0] + start_text_piece+':';
             if (currentLine.startsWith(start_text)) {
                 if (snippet.list[1] && !currentLine.endsWith(snippet.list[1])) {
                     continue;
