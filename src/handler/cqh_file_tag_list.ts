@@ -1,9 +1,10 @@
 import * as vscode from "vscode";
 import * as static_var from "../static_var"
-import { IConfig,getSnippetForExt } from "../config";
+import { IConfig, getSnippetForExt } from "../config";
 import path = require("path");
 
 
+let global_tag_history_list: Array<string> = []
 
 
 export async function cqh_file_tag_list(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit) {
@@ -30,7 +31,7 @@ export async function cqh_file_tag_list(textEditor: vscode.TextEditor, edit: vsc
         throw new Error(error_message);
     }
 
-    let tag_list:Array<string> = [];
+    let tag_list: Array<string> = [];
 
 
 
@@ -38,19 +39,19 @@ export async function cqh_file_tag_list(textEditor: vscode.TextEditor, edit: vsc
         let currentLine = lines[line_index];
         currentLine = currentLine.trim();
         let start_text_list = ['cqh_file_tag', 'cqh-file-tag']
-        for(let  start_text_piece of start_text_list) {
+        for (let start_text_piece of start_text_list) {
 
-            let start_text = snippet.list[0] + start_text_piece+':';
+            let start_text = snippet.list[0] + start_text_piece + ':';
             if (currentLine.startsWith(start_text)) {
                 if (snippet.list[1] && !currentLine.endsWith(snippet.list[1])) {
                     continue;
                 }
                 let title = currentLine.slice(start_text.length);
-                if(snippet.list[1]) {
-                    title = title.slice(0, title.length-snippet.list[1].length);
+                if (snippet.list[1]) {
+                    title = title.slice(0, title.length - snippet.list[1].length);
                 }
                 let tag_piece_list = title.trim().split("||");
-                for(let tag of tag_piece_list) {
+                for (let tag of tag_piece_list) {
                     tag_list.push(tag);
                 }
                 // requestRanges.push([line_index, line_index + 1, title]);
@@ -62,7 +63,7 @@ export async function cqh_file_tag_list(textEditor: vscode.TextEditor, edit: vsc
     }
 
 
-    if (tag_list.length == 0) {
+    if (tag_list.length + global_tag_history_list.length == 0) {
         error_message = "列表为空"
         vscode.window.showErrorMessage(error_message);
         throw new Error(error_message)
@@ -75,8 +76,17 @@ export async function cqh_file_tag_list(textEditor: vscode.TextEditor, edit: vsc
         let tmp = prefix + value;
         return tmp.slice(tmp.length - count);
     }
-    for (let i = 0; i < tag_list.length; i++) {
+    for (let i = 0; i < global_tag_history_list.length; i++) {
         let prefix = stringprefix('' + i, 2);
+        let tag = global_tag_history_list[i];
+        quickPickItem.push({
+            "label": `${prefix}.${tag}`,
+            "description": tag
+
+        })
+    }
+    for (let i = 0; i < tag_list.length; i++) {
+        let prefix = stringprefix(11 + i + '', 2);
         let tag = tag_list[i]
         quickPickItem.push({
             "label": `${prefix}.${tag}`,
@@ -93,8 +103,18 @@ export async function cqh_file_tag_list(textEditor: vscode.TextEditor, edit: vsc
     let { label, description } = item;
     for (let i = 0; i < tag_list.length; i++) {
         let tag = tag_list[i];
+        
         if (tag == description) {
-            await  vscode.commands.executeCommand("workbench.action.quickOpen", tag);
+            let global_index = global_tag_history_list.indexOf(tag);
+            if(global_index > -1) {
+                global_tag_history_list.splice(global_index, 1);
+                
+            }
+            global_tag_history_list.unshift(tag);
+            if(global_tag_history_list.length > 5) {
+                global_tag_history_list.pop();
+            }
+            await vscode.commands.executeCommand("workbench.action.quickOpen", tag);
         }// if(title==description)
     }
 }
