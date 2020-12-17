@@ -101,7 +101,8 @@ export async function cqh_file_tag_list(textEditor: vscode.TextEditor, edit: vsc
         return;
     }
     let { label, description } = item;
-    for (let i = 0; i < tag_list.length; i++) {
+    let final_tag_list = [...global_tag_history_list, ...tag_list]
+    for (let i = 0; i < final_tag_list.length; i++) {
         let tag = tag_list[i];
         
         if (tag == description) {
