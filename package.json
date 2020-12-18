@@ -3,7 +3,7 @@
 	"displayName": "cqh_file_tag",
 	"description": "",
 	"publisher": "cqh",
-	"version": "0.0.6",
+	"version": "0.0.8",
 	"repository": {
 		"url": "https://github.com/chen19901225/cqh-file-tag"
 	},
@@ -27,7 +27,7 @@
 		"keybindings": [
 			{
 				"command": "cqh-file-tag.list",
-				"key": "alt+f t"
+				"key": "alt+t"
 			}
 		],
 		"configuration": {
