@@ -22,12 +22,20 @@
 			{
 				"command": "cqh-file-tag.list",
 				"title": "cqh file tag list"
+			},
+			{
+				"command": "cqh-file-tag.from_file_name",
+				"title": "cqh file tag list from file name"
 			}
 		],
 		"keybindings": [
 			{
 				"command": "cqh-file-tag.list",
 				"key": "alt+t"
+			},
+			{
+				"command": "cqh-file-tag.from_file_name",
+				"key": "alt+f"
 			}
 		],
 		"configuration": {
@@ -44,6 +52,13 @@
 					],
 					"default": "warn",
 					"description": "Controls the verbosity of logging. Logs can be seen in the console by opening the dev tools. `log` is the most verbose and `error` will only show critical errors."
+				},
+				"cqh-file-tag.tagExcludeList": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"default": []
 				},
 				"cqh-file-tag.byExt": {
 					"type": "array",

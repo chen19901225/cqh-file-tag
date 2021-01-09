@@ -8,22 +8,28 @@ export interface ICommand {
 
 export interface IConfig extends vscode.WorkspaceConfiguration {
     byExt: ICommand[];
+    tagExCludeList: Array<string>
 }
 
-export function getSnippetForExt(ext: string):ICommand|null {
-    if(!ext.startsWith(".")){ // 不是ext二十路径
+export function getConfig(): IConfig {
+    let config = vscode.workspace.getConfiguration("cqh-file-tag") as IConfig;
+    return config;
+}
+
+export function getSnippetForExt(ext: string): ICommand | null {
+    if (!ext.startsWith(".")) { // 不是ext二十路径
         ext = extname(ext);
     }
     let config = vscode.workspace.getConfiguration("cqh-file-tag") as IConfig;
     let snippet = null;
-    for(let i=0;i<config.byExt.length;i++){
+    for (let i = 0; i < config.byExt.length; i++) {
         let current_snippet = config.byExt[i];
-        if(current_snippet.name === ext){
+        if (current_snippet.name === ext) {
             snippet = current_snippet;
             break;
         }
     }
-    
+
     return snippet;
     //return null;
 }

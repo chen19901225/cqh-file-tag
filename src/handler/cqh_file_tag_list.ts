@@ -2,9 +2,10 @@ import * as vscode from "vscode";
 import * as static_var from "../static_var"
 import { IConfig, getSnippetForExt } from "../config";
 import path = require("path");
+import { addTag, getTagHistoryList } from "../service_history";
 
 
-let global_tag_history_list: Array<string> = []
+// let global_tag_history_list: Array<string> = []
 
 
 export async function cqh_file_tag_list(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit) {
@@ -32,6 +33,7 @@ export async function cqh_file_tag_list(textEditor: vscode.TextEditor, edit: vsc
     }
 
     let tag_list: Array<string> = [];
+    let global_tag_history_list: Array<string> = getTagHistoryList();
 
 
 
@@ -104,17 +106,9 @@ export async function cqh_file_tag_list(textEditor: vscode.TextEditor, edit: vsc
     let final_tag_list = [...global_tag_history_list, ...tag_list]
     for (let i = 0; i < final_tag_list.length; i++) {
         let tag = final_tag_list[i];
-        
+
         if (tag == description) {
-            let global_index = global_tag_history_list.indexOf(tag);
-            if(global_index > -1) {
-                global_tag_history_list.splice(global_index, 1);
-                
-            }
-            global_tag_history_list.unshift(tag);
-            if(global_tag_history_list.length > 5) {
-                global_tag_history_list.pop();
-            }
+            addTag(tag);
             await vscode.commands.executeCommand("workbench.action.quickOpen", tag);
         }// if(title==description)
     }
