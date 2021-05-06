@@ -5,7 +5,7 @@ import * as path from "path";
 import { getConfig } from "../config";
 import { addTag, getTagHistoryList } from "../service_history";
 
-export async function cqh_file_tag_from_file_name_single(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit) {
+export async function cqh_file_tag_from_file_name_history(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit) {
     let document = textEditor.document;
     let fileName = path.basename(document.uri.fsPath);
     let tag_list: Array<string> = [];
@@ -15,12 +15,12 @@ export async function cqh_file_tag_from_file_name_single(textEditor: vscode.Text
         tag_list.push(...fileName.split("__"));
     }
     let final_list: Array<string> = [...getTagHistoryList()]
-    for (let piece of tag_list) {
-        piece = piece.trim();
-        if (piece.length > 0 && tagExcludeList.indexOf(piece) == -1) {
-            final_list.push(piece);
-        }
-    }
+    // for (let piece of tag_list) {
+    //     piece = piece.trim();
+    //     if (piece.length > 0 && tagExcludeList.indexOf(piece) == -1) {
+    //         final_list.push(piece);
+    //     }
+    // }
     if (final_list.length == 0) {
         vscode.window.showErrorMessage("final_list 为空")
         return;

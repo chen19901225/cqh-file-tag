@@ -1,7 +1,7 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-import { cqh_file_tag_from_file_name_single } from './handler/cqh_file_tag_form_file_name_single';
+import { cqh_file_tag_from_file_name_history } from './handler/cqh_file_tag_form_file_name_single';
 import { cqh_file_tag_from_file_name } from './handler/cqh_file_tag_from_file_name';
 import { cqh_file_tag_list } from './handler/cqh_file_tag_list';
 
@@ -40,7 +40,7 @@ export function activate(context: vscode.ExtensionContext) {
 		// The code you place here will be executed every time your command is executed
 
 		// Display a message box to the user
-		await cqh_file_tag_from_file_name(textEditor, edit, { add_history: true });
+		await cqh_file_tag_from_file_name_history(textEditor, edit);
 		// vscode.window.showInformationMessage('Hello World from cqh_file_tag!');
 	})
 
