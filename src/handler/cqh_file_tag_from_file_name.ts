@@ -7,7 +7,7 @@ import { addTag, getTagHistoryList } from "../service_history";
 
 export async function cqh_file_tag_from_file_name(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit, {add_history=false}={}) {
     let document = textEditor.document;
-    let fileName = path.basename(document.uri.fsPath);
+    let fileName = path.basename(document.uri.fsPath).split(".")[0];
     let tag_list: Array<string> = [];
     tag_list.push(fileName);
     let tagExcludeList = getConfig().tagExCludeList || [];
