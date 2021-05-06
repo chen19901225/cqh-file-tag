@@ -36,11 +36,11 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(fileDisposable);
 
 
-	let fileDisposableSingle = vscode.commands.registerTextEditorCommand("cqh-file-tag.from_file_name_single", async (textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit) => {
+	let fileDisposableSingle = vscode.commands.registerTextEditorCommand("cqh-file-tag.from_file_name_history", async (textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit) => {
 		// The code you place here will be executed every time your command is executed
 
 		// Display a message box to the user
-		await cqh_file_tag_from_file_name_single(textEditor, edit);
+		await cqh_file_tag_from_file_name(textEditor, edit, { add_history: true });
 		// vscode.window.showInformationMessage('Hello World from cqh_file_tag!');
 	})
 

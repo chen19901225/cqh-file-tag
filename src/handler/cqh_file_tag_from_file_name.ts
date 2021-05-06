@@ -5,7 +5,7 @@ import * as path from "path";
 import { getConfig } from "../config";
 import { addTag, getTagHistoryList } from "../service_history";
 
-export async function cqh_file_tag_from_file_name(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit) {
+export async function cqh_file_tag_from_file_name(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit, {add_history=false}={}) {
     let document = textEditor.document;
     let fileName = path.basename(document.uri.fsPath);
     let tag_list: Array<string> = [];
@@ -14,7 +14,11 @@ export async function cqh_file_tag_from_file_name(textEditor: vscode.TextEditor,
     if (fileName.indexOf("__") > -1) {
         tag_list.push(...fileName.split("__"));
     }
-    let final_list: Array<string> = [...getTagHistoryList()]
+    // let final_list: Array<string> = [...getTagHistoryList()]
+    let final_list: Array<string> = []
+    if(add_history){
+        final_list.push(...getTagHistoryList());
+    }
     for (let piece of tag_list) {
         piece = piece.trim();
         if (piece.length > 0 && tagExcludeList.indexOf(piece) == -1) {
@@ -72,6 +76,7 @@ export async function cqh_file_tag_from_file_name(textEditor: vscode.TextEditor,
         }
     }
     let desc = final_tag_list.slice(startIndex, endIndex + 1).join("__");
+    addTag(desc);
     await vscode.commands.executeCommand("workbench.action.quickOpen", desc);
 
 
