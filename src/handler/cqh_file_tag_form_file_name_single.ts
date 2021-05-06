@@ -5,7 +5,7 @@ import * as path from "path";
 import { getConfig } from "../config";
 import { addTag, getTagHistoryList } from "../service_history";
 
-export async function cqh_file_tag_from_file_name(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit) {
+export async function cqh_file_tag_from_file_name_single(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit) {
     let document = textEditor.document;
     let fileName = path.basename(document.uri.fsPath);
     let tag_list: Array<string> = [];
@@ -43,37 +43,21 @@ export async function cqh_file_tag_from_file_name(textEditor: vscode.TextEditor,
 
     }
 
-    let itemList = await vscode.window.showQuickPick(quickItemList, { canPickMany: true })
+    let item = await vscode.window.showQuickPick(quickItemList)
 
-    if (!itemList) {
+    if (!item) {
         return;
     }
-    let startItem: vscode.QuickPickItem, endItem: vscode.QuickPickItem
-    if (itemList.length == 1) {
-        startItem = itemList[0]
-        endItem = itemList[0]
-    } else {
-        startItem = itemList[0]
-        endItem = itemList[itemList.length - 1]
-    }
-    // let { label, description } = item;
-    let startIndex: number = -1, endIndex: number = -1;
+    let { label, description } = item;
     let final_tag_list = final_list;
     for (let i = 0; i < final_tag_list.length; i++) {
         let tag = final_tag_list[i];
 
-        if (tag == startItem.description) {
-            startIndex = i;
-            // addTag(tag);
-            // await vscode.commands.executeCommand("workbench.action.quickOpen", tag);
+        if (tag == description) {
+            addTag(tag);
+            await vscode.commands.executeCommand("workbench.action.quickOpen", tag);
         }// if(title==description)
-        if (tag == endItem.description) {
-            endIndex = i;
-        }
     }
-    let desc = final_tag_list.slice(startIndex, endIndex + 1).join("__");
-    await vscode.commands.executeCommand("workbench.action.quickOpen", desc);
-
 
 
 }

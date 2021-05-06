@@ -3,7 +3,7 @@
 	"displayName": "cqh_file_tag",
 	"description": "",
 	"publisher": "cqh",
-	"version": "0.0.9",
+	"version": "0.0.10",
 	"repository": {
 		"url": "https://github.com/chen19901225/cqh-file-tag"
 	},
@@ -26,16 +26,24 @@
 			{
 				"command": "cqh-file-tag.from_file_name",
 				"title": "cqh file tag list from file name"
+			},
+			{
+				"command": "cqh-file-tag.from_file_name_single",
+				"title": "cqh file tag list form file name single tag"
 			}
 		],
 		"keybindings": [
 			{
 				"command": "cqh-file-tag.list",
-				"key": "alt+t"
+				"key": "alt+f l"
 			},
 			{
 				"command": "cqh-file-tag.from_file_name",
-				"key": "alt+f"
+				"key": "alt+f m"
+			},
+			{
+				"command": "cqh-file-tag.from_file_name_single",
+				"key": "alt+f s"
 			}
 		],
 		"configuration": {

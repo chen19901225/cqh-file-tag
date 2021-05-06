@@ -1,6 +1,7 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import { cqh_file_tag_from_file_name_single } from './handler/cqh_file_tag_form_file_name_single';
 import { cqh_file_tag_from_file_name } from './handler/cqh_file_tag_from_file_name';
 import { cqh_file_tag_list } from './handler/cqh_file_tag_list';
 
@@ -15,7 +16,7 @@ export function activate(context: vscode.ExtensionContext) {
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerTextEditorCommand('cqh-file-tag.list',async  (textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit) => {
+	let disposable = vscode.commands.registerTextEditorCommand('cqh-file-tag.list', async (textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit) => {
 		// The code you place here will be executed every time your command is executed
 
 		// Display a message box to the user
@@ -24,7 +25,7 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 	context.subscriptions.push(disposable);
 
-	let fileDisposable = vscode.commands.registerTextEditorCommand("cqh-file-tag.from_file_name",async  (textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit) => {
+	let fileDisposable = vscode.commands.registerTextEditorCommand("cqh-file-tag.from_file_name", async (textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit) => {
 		// The code you place here will be executed every time your command is executed
 
 		// Display a message box to the user
@@ -33,7 +34,18 @@ export function activate(context: vscode.ExtensionContext) {
 	})
 
 	context.subscriptions.push(fileDisposable);
+
+
+	let fileDisposableSingle = vscode.commands.registerTextEditorCommand("cqh-file-tag.from_file_name_single", async (textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit) => {
+		// The code you place here will be executed every time your command is executed
+
+		// Display a message box to the user
+		await cqh_file_tag_from_file_name_single(textEditor, edit);
+		// vscode.window.showInformationMessage('Hello World from cqh_file_tag!');
+	})
+
+	context.subscriptions.push(fileDisposableSingle);
 }
 
 // this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }
