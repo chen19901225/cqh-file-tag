@@ -115,6 +115,10 @@ export async function cqh_file_tag_from_file_name_insert(textEditor: vscode.Text
         let tmp = prefix + value;
         return tmp.slice(tmp.length - count);
     }
+
+    let position = textEditor.selection.active;
+
+
     let quickItemList: vscode.QuickPickItem[] = [];
     for (let i = 0; i < final_list.length; i++) {
         let tag = final_list[i];
@@ -157,10 +161,11 @@ export async function cqh_file_tag_from_file_name_insert(textEditor: vscode.Text
     }
     let desc = final_tag_list.slice(startIndex, endIndex + 1).join("__");
     addTag(desc);
+    // console.log(`desc:${desc}, postion:${position.line}, ${position.character}`);
     // await vscode.commands.executeCommand("workbench.action.quickOpen", desc);
-    let position = textEditor.selection.active;
-    edit.insert(position, desc)
-
+    let activeEditor = vscode.window.activeTextEditor!;
+    // edit.insert(position, desc)
+    activeEditor.insertSnippet(new vscode.SnippetString(desc), textEditor.selection.active)
 
 
 }
