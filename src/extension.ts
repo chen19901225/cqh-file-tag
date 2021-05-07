@@ -2,7 +2,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import { cqh_file_tag_from_file_name_history } from './handler/cqh_file_tag_form_file_name_single';
-import { cqh_file_tag_from_file_name } from './handler/cqh_file_tag_from_file_name';
+import { cqh_file_tag_from_file_name, cqh_file_tag_from_file_name_insert } from './handler/cqh_file_tag_from_file_name';
 import { cqh_file_tag_list } from './handler/cqh_file_tag_list';
 
 // this method is called when your extension is activated
@@ -45,6 +45,17 @@ export function activate(context: vscode.ExtensionContext) {
 	})
 
 	context.subscriptions.push(fileDisposableSingle);
+
+
+	let fileDisposableInsert = vscode.commands.registerTextEditorCommand("cqh-file-tag.from_file_name_insert", async (textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit) => {
+		// The code you place here will be executed every time your command is executed
+
+		// Display a message box to the user
+		await cqh_file_tag_from_file_name_insert(textEditor, edit);
+		// vscode.window.showInformationMessage('Hello World from cqh_file_tag!');
+	})
+
+	context.subscriptions.push(fileDisposableInsert);
 }
 
 // this method is called when your extension is deactivated

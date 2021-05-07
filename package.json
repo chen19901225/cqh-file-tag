@@ -30,6 +30,10 @@
 			{
 				"command": "cqh-file-tag.from_file_name_history",
 				"title": "cqh file tag list form file name history"
+			},
+			{
+				"command": "cqh-file-tag.from_file_name_insert",
+				"title": "cqh file tag list form file name insert"
 			}
 		],
 		"keybindings": [
@@ -44,6 +48,10 @@
 			{
 				"command": "cqh-file-tag.from_file_name_history",
 				"key": "alt+f h"
+			},
+			{
+				"command": "cqh-file-tag.from_file_name_insert",
+				"key": "alt+f i"
 			}
 		],
 		"configuration": {
